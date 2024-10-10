@@ -7,19 +7,28 @@ let categories = [];
  
 function initialize() {
     return new Promise((resolve, reject) => {
-       const filePath = path.join(__dirname, 'items.json'); 
-        fs.readFile(filePath, 'utf8', (err, data) => {
+        const itemsFilePath = path.join(__dirname, 'items.json');
+        const categoriesFilePath = path.join(__dirname, 'categories.json');
+        
+        fs.readFile(itemsFilePath, 'utf8', (err, data) => {
             if (err) {
                 reject('Unable to read items.json file');
             } else {
                 items = JSON.parse(data);
-                resolve();
+
+                // Read categories after items
+                fs.readFile(categoriesFilePath, 'utf8', (err, data) => {
+                    if (err) {
+                        reject('Unable to read categories.json file');
+                    } else {
+                        categories = JSON.parse(data);
+                        resolve();
+                    }
+                });
             }
         });
-
     });
 }
-
 
 
 function getAllItems() {
