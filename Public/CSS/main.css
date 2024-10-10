@@ -1,9 +1,25 @@
 p{
-    color: aqua;
+    color: black;
 }
 
 body{
-    background-image: url(/ss.avif);
+    background-color: bisque;
+}
+
+.nav-link{
+    color: rgb(255, 234, 197);
+    
+}
+
+.WEB322-Ramandeep{
+    color: rgb(254, 216, 177);
+    font-weight: bold;
+}
+
+h2{
+    font-family: 'Kalnia Glaze', sans-serif;
+    font-weight: 700; 
+    color: rgb(84, 51, 16);
 }
 
 
