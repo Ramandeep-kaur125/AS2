@@ -4,10 +4,10 @@ const path = require('path');
 // Function to initialize store service 
 let items = [];
 let categories = [];
-
+ 
 function initialize() {
     return new Promise((resolve, reject) => {
-        const filePath = path.join(__dirname, 'items.json'); 
+       const filePath = path.join(__dirname, 'items.json'); 
         fs.readFile(filePath, 'utf8', (err, data) => {
             if (err) {
                 reject('Unable to read items.json file');
@@ -16,8 +16,11 @@ function initialize() {
                 resolve();
             }
         });
+
     });
 }
+
+
 
 function getAllItems() {
     return new Promise((resolve, reject) => {
@@ -57,5 +60,5 @@ module.exports = {
     getPublishedItems,
     getCategories,
     getItems: () => items,         // Function to access items
-    getCategories: () => categories  // Function to access categories
+    
 }
