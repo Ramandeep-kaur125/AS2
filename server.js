@@ -82,6 +82,11 @@ app.get('/categories', (req, res) => {
         });
 });
 
+// Route for "/items/add"
+app.get('/items/add', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'addItem.html'));
+});
+
 
 // Catch-all route for unmatched routes
 app.use((req, res) => {
