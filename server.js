@@ -63,15 +63,54 @@ storeService.initialize()
     });
 
     // Route for "/items"
+    // Route for "/items"
 app.get('/items', (req, res) => {
-    storeService.getAllItems()
-        .then(data => {
-            res.json(data);  // Send the items as JSON response
-        })
-        .catch(err => {
-            res.status(404).json({ message: err});  // Send the error message if no items found
-        });
+  const { category, minDate } = req.query;
+
+  let itemPromise;
+  
+  if (category) {
+      // Validate category
+      if (['1', '2', '3', '4', '5'].includes(category)) {
+          itemPromise = storeService.getItemsByCategory(category);
+      } else {
+          return res.status(400).json({ error: 'Invalid category value. Must be 1, 2, 3, 4, or 5.' });
+      }
+  } else if (minDate) {
+      // Validate date format (YYYY-MM-DD)
+      if (/^\d{4}-\d{2}-\d{2}$/.test(minDate)) {
+          itemPromise = storeService.getItemsByMinDate(minDate);
+      } else {
+          return res.status(400).json({ error: 'Invalid date format. Must be YYYY-MM-DD.' });
+      }
+  } else {
+      // No filters, return all items
+      itemPromise = storeService.getAllItems();
+  }
+
+  itemPromise
+      .then(data => res.json(data))
+      .catch(err => res.status(404).json({ message: err }));
 });
+
+// Route for "/item/:value"
+app.get('/item/:value', (req, res) => {
+  const { value } = req.params;
+
+  storeService.getItemById(value)
+      .then(item => {
+          if (item) {
+              res.json(item);
+          } else {
+              res.status(404).json({ error: 'Item not found.' });
+          }
+      })
+      .catch(err => {
+          console.error(err);
+          res.status(500).json({ error: 'An error occurred while fetching the item.' });
+      });
+});
+
 
 // Route for "/shop"
 app.get('/shop', (req, res) => {

@@ -89,6 +89,44 @@ function addItem(itemData) {
   });
 }
 
+// New function to filter items by category
+function getItemsByCategory(category) {
+    return new Promise((resolve, reject) => {
+        const filteredItems = items.filter(item => item.category == category);
+        if (filteredItems.length > 0) {
+            resolve(filteredItems);
+        } else {
+            reject('No items found for the specified category');
+        }
+    });
+}
+
+// New function to filter items by minimum date
+function getItemsByMinDate(minDateStr) {
+    return new Promise((resolve, reject) => {
+        const minDate = new Date(minDateStr);
+        const filteredItems = items.filter(item => new Date(item.postDate) >= minDate);
+        if (filteredItems.length > 0) {
+            resolve(filteredItems);
+        } else {
+            reject('No items found with a post date after the specified date');
+        }
+    });
+}
+
+// New function to get an item by ID
+function getItemById(id) {
+    return new Promise((resolve, reject) => {
+        const item = items.find(item => item.id == id);
+        if (item) {
+            resolve(item);
+        } else {
+            reject('Item not found');
+        }
+    });
+}
+
+
 module.exports = {
     initialize,
     getAllItems,
@@ -96,6 +134,8 @@ module.exports = {
     getCategories,
     getItems: () => items, 
     addItem,
-    
+    getItemsByCategory,
+    getItemsByMinDate,
+    getItemById
 }
 
