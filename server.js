@@ -13,6 +13,19 @@ GitHub Repository URL: https://github.com/Ramandeep-kaur125/AS2
 const express = require('express');
 const path = require('path');
 
+const multer = require("multer");
+const upload = multer();
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+  cloud_name: 'drsxtxy0j',       
+  api_key: '518511738296819',            
+  api_secret: 'MS2nt9F-n3fPFbYIuMW9tU1WskQ',       
+  secure: true                         
+});
+
+const streamifier = require('streamifier');
+
 // Import the store-service module
 const storeService = require('./store-service');
 

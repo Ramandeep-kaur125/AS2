@@ -63,11 +63,31 @@ function getCategories() {
     });
 }
 
+    items = []; // Array to hold items
+
+function addItem(itemData) {
+  return new Promise((resolve, reject) => {
+    // Set the published property to false if it's undefined
+    itemData.published = itemData.published !== undefined;
+
+    // Set the id property to the length of the items array + 1
+    itemData.id = items.length + 1;
+
+    // Add the new item to the items array
+    items.push(itemData);
+
+    // Resolve with the new item
+    resolve(itemData);
+  });
+}
+
 module.exports = {
     initialize,
     getAllItems,
     getPublishedItems,
     getCategories,
-    getItems: () => items,         // Function to access items
+    getItems: () => items, 
+    addItem,
     
 }
+
