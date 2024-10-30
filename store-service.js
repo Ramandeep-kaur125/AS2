@@ -76,8 +76,16 @@ function addItem(itemData) {
     // Add the new item to the items array
     items.push(itemData);
 
-    // Resolve with the new item
-    resolve(itemData);
+   // Save updated items back to the file
+   const itemsFilePath = path.join(__dirname, 'items.json');
+   fs.writeFile(itemsFilePath, JSON.stringify(items, null, 2), (err) => {
+       if (err) {
+           reject('Unable to save item to items.json');
+       } else {
+           resolve(itemData); // Resolve with the new item
+       }
+   });
+   
   });
 }
 
