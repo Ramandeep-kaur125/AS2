@@ -62,7 +62,7 @@ storeService.initialize()
         console.error(err);
     });
 
-    // Route for "/items"
+    
     // Route for "/items"
 app.get('/items', (req, res) => {
   const { category, minDate } = req.query;

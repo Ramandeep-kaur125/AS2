@@ -101,27 +101,24 @@ function getItemsByCategory(category) {
     });
 }
 
-// New function to filter items by minimum date
 function getItemsByMinDate(minDateStr) {
     return new Promise((resolve, reject) => {
-        const minDate = new Date(minDateStr);
-        const filteredItems = items.filter(item => new Date(item.postDate) >= minDate);
+        const filteredItems = items.filter(item => new Date(item.postDate) >= new Date(minDateStr));
         if (filteredItems.length > 0) {
             resolve(filteredItems);
         } else {
-            reject('No items found with a post date after the specified date');
+            reject('no results returned');
         }
     });
 }
 
-// New function to get an item by ID
 function getItemById(id) {
     return new Promise((resolve, reject) => {
-        const item = items.find(item => item.id == id);
-        if (item) {
-            resolve(item);
+        const foundItem = items.find(item => item.id === id);
+        if (foundItem) {
+            resolve(foundItem);
         } else {
-            reject('Item not found');
+            reject('no result returned');
         }
     });
 }
